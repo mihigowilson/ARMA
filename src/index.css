@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+/* High-DPI Mobile & Screen Resolution Enhancements */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Touch-friendly scrolling containers */
+.overflow-y-auto, .overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ==========================================
+   CSS Print Media Queries for ARMA Rwanda
+   Digital ID Cards, Comp Cards, & Certificates
+   ========================================== */
+
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}
+
+@media print {
+  /* Page Setup: Clean A4 / Portrait with 10mm margins */
+  @page {
+    size: portrait;
+    margin: 10mm;
+  }
+
+  /* Color accuracy and print canvas reset */
+  html, body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Hide navigation, toolbars, buttons, footers, sidebars, and overlays when printing */
+  nav,
+  header,
+  footer,
+  aside,
+  button,
+  input,
+  select,
+  textarea,
+  iframe,
+  .print\:hidden,
+  .no-print,
+  [role="status"],
+  .toast-container {
+    display: none !important;
+  }
+
+  /* Modal Container Resets: remove dark overlay backdrops and fixed scroll locks */
+  .fixed,
+  .fixed.inset-0,
+  .backdrop-blur-md,
+  .bg-black\/80,
+  .bg-black\/70 {
+    position: static !important;
+    inset: auto !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Remove max-height and scrollbars on modal content containers */
+  .overflow-y-auto,
+  .overflow-hidden,
+  .max-h-\[90vh\],
+  .max-h-\[85vh\],
+  .max-h-\[80vh\] {
+    max-height: none !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* Force display of elements marked specifically for printing */
+  .print-only {
+    display: block !important;
+  }
+
+  /* Printable Cards & Containers */
+  .printable-area,
+  .printable-card,
+  .printable-compcard,
+  .printable-certificate {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 16px !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Digital ID Card Specific Print Styling (Standard Badge Proportions) */
+  .printable-id-card {
+    width: 100% !important;
+    max-width: 650px !important;
+    margin: 20px auto !important;
+    padding: 20px !important;
+    background: #0f172a !important;
+    color: #ffffff !important;
+    border: 2px solid #00A1DE !important;
+    border-radius: 16px !important;
+    box-shadow: none !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Ensure text colors maintain high contrast when printing dark card */
+  .printable-id-card * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Image Print Optimization */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Preserve QR codes crispness */
+  img[alt*="QR"],
+  .qr-code-img {
+    image-rendering: pixelated;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Clean Page Breaks between multiple items */
+  .page-break-before {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+
+  .page-break-after {
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+}
+

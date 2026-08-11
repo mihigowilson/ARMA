@@ -1,0 +1,88 @@
+{
+  "entities": {
+    "subscribers": {
+      "title": "Newsletter Subscribers",
+      "description": "Captured email newsletter subscriptions and preferences for ARMA Gazette",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "subscribedAt": { "type": "string" },
+        "frequency": { "type": "string" },
+        "topics": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "status": { "type": "string" },
+        "welcomeEmailSent": { "type": "boolean" }
+      },
+      "required": ["email", "subscribedAt", "status"]
+    },
+    "models": {
+      "title": "Talent Models",
+      "description": "Registered model profiles in the ARMA National Directory",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "fullName": { "type": "string" },
+        "category": { "type": "string" },
+        "gender": { "type": "string" },
+        "province": { "type": "string" },
+        "district": { "type": "string" },
+        "agencyId": { "type": "string" },
+        "agencyName": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "featured": { "type": "boolean" }
+      },
+      "required": ["fullName", "category"]
+    },
+    "agencies": {
+      "title": "Agency Profiles",
+      "description": "Licensed modeling agencies in Rwanda",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "agencyName": { "type": "string" },
+        "ceoName": { "type": "string" },
+        "licenseNumber": { "type": "string" },
+        "licensedStatus": { "type": "string" },
+        "representedModelsCount": { "type": "number" }
+      },
+      "required": ["agencyName", "licensedStatus"]
+    },
+    "audit_logs": {
+      "title": "Audit Error Logs",
+      "description": "Captured frontend exceptions and system diagnostic logs",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "message": { "type": "string" },
+        "stack": { "type": "string" },
+        "type": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "url": { "type": "string" },
+        "userAgent": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["message", "timestamp", "type"]
+    }
+  },
+  "firestore": {
+    "/subscribers/{subscriberId}": {
+      "schema": "subscribers",
+      "description": "Subscribers collection"
+    },
+    "/models/{modelId}": {
+      "schema": "models",
+      "description": "Models collection in National Directory"
+    },
+    "/agencies/{agencyId}": {
+      "schema": "agencies",
+      "description": "Agencies collection"
+    },
+    "/audit_logs/{logId}": {
+      "schema": "audit_logs",
+      "description": "Audit logs collection for error tracking"
+    }
+  }
+}

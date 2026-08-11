@@ -1,0 +1,16 @@
+import {StrictMode} from 'react';
+import {createRoot} from 'react-dom/client';
+import App from './App.tsx';
+import './index.css';
+import { initGlobalErrorLogging } from './services/errorLoggingService';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
+
+initGlobalErrorLogging();
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
+  </StrictMode>,
+);

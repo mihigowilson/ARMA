@@ -1,0 +1,6 @@
+{
+  "name": "ARMA Rwanda",
+  "description": "Official National Association of Rwanda Models & Agencies platform for models, agencies, scouts, event casting, digital IDs, and directory.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
