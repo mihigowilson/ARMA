@@ -75,6 +75,7 @@ export const UserDashboard: React.FC = () => {
   const [runwayUrl, setRunwayUrl] = useState(myModelProfile?.photos?.runway || '');
   const [editorialUrl, setEditorialUrl] = useState(myModelProfile?.photos?.editorial || '');
   const [galleryUrls, setGalleryUrls] = useState<string[]>(myModelProfile?.photos?.gallery || []);
+  const [compCardUrl, setCompCardUrl] = useState(myModelProfile?.compCardUrl || '');
 
   const [idQr, setIdQr] = useState('');
 
@@ -93,6 +94,7 @@ export const UserDashboard: React.FC = () => {
       setRunwayUrl(myModelProfile.photos.runway || '');
       setEditorialUrl(myModelProfile.photos.editorial || '');
       setGalleryUrls(myModelProfile.photos.gallery || []);
+      setCompCardUrl(myModelProfile.compCardUrl || '');
     }
   }, [myModelProfile, user]);
 
@@ -136,7 +138,7 @@ export const UserDashboard: React.FC = () => {
       runway: runwayUrl,
       editorial: editorialUrl,
       gallery: galleryUrls
-    });
+    }, compCardUrl);
   };
 
   const handleUserAvatarUpload = (newAvatarUrl: string) => {
@@ -536,6 +538,20 @@ export const UserDashboard: React.FC = () => {
                     placeholderText="Upload Editorial Photo"
                   />
                 </div>
+              </div>
+
+              <div className="max-w-sm p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold font-serif text-slate-900 dark:text-white">Comp Card File</span>
+                  <span className="text-[10px] font-mono text-[#00A1DE]">JPG, PNG, or WEBP</span>
+                </div>
+                <ImageUploader
+                  currentImage={compCardUrl}
+                  onImageChange={setCompCardUrl}
+                  aspectRatio="landscape"
+                  placeholderText="Upload Comp Card"
+                />
+                <p className="text-[10px] text-slate-500">Upload the finished composite card so agencies and clients can review it with your profile.</p>
               </div>
 
               {/* Gallery / Portfolio Photos */}

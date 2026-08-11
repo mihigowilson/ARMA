@@ -33,7 +33,6 @@ import {
   saveAgencyToFirestore,
   associateModelWithAgencyInFirestore,
   disassociateModelFromAgencyInFirestore,
-  seedInitialDirectoryData
 } from '../lib/modelsService';
 
 interface Toast {
@@ -67,7 +66,11 @@ interface AuthContextType {
   enableTOTPMFA: (secret: string, code: string) => Promise<{ success: boolean; message: string }>;
   disableTOTPMFA: (codeOrText: string) => Promise<{ success: boolean; message: string }>;
   updateUserProfilePicture: (photoUrl: string) => void;
-  updateModelPhotosAndCompCard: (modelId: string, updatedPhotos: Partial<ModelProfile['photos']>) => void;
+  updateModelPhotosAndCompCard: (
+    modelId: string,
+    updatedPhotos: Partial<ModelProfile['photos']>,
+    compCardUrl?: string
+  ) => void;
   models: ModelProfile[];
   agencies: AgencyProfile[];
   castings: CastingCall[];
@@ -144,7 +147,13 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const isClearedInitial = localStorage.getItem('arma_samples_cleared') === 'true';
+  const productionDataVersion = 'empty-directory-v1';
+  const isClearedInitial = localStorage.getItem('arma_production_data_version') === productionDataVersion;
+  if (!isClearedInitial) {
+    ['arma_models', 'arma_agencies', 'arma_castings', 'arma_events', 'arma_news', 'arma_documents', 'arma_certificates', 'arma_applications', 'arma_emails'].forEach((key) => localStorage.removeItem(key));
+    localStorage.setItem('arma_samples_cleared', 'true');
+    localStorage.setItem('arma_production_data_version', productionDataVersion);
+  }
 
   const [user, setUser] = useState<User | null>(() => {
     const savedUser = localStorage.getItem('arma_user');
@@ -354,16 +363,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Subscribe to Firestore models & agencies
   useEffect(() => {
-    if (!isClearedInitial && models.length === 0 && agencies.length === 0) {
-      seedInitialDirectoryData(INITIAL_MODELS, INITIAL_AGENCIES);
-    }
-
     const unsubModels = subscribeToModelsStore((remoteModels) => {
       if (remoteModels && remoteModels.length > 0) {
         setModels((prev) => {
           const map = new Map<string, ModelProfile>();
           prev.forEach((m) => map.set(m.id, m));
-          remoteModels.forEach((m) => map.set(m.id, m));
+          remoteModels
+            .filter((m) => !['mod-001', 'mod-002'].includes(m.id))
+            .forEach((m) => map.set(m.id, m));
           return Array.from(map.values());
         });
       }
@@ -374,7 +381,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setAgencies((prev) => {
           const map = new Map<string, AgencyProfile>();
           prev.forEach((a) => map.set(a.id, a));
-          remoteAgencies.forEach((a) => map.set(a.id, a));
+          remoteAgencies
+            .filter((a) => a.id !== 'age-001')
+            .forEach((a) => map.set(a.id, a));
           return Array.from(map.values());
         });
       }
@@ -784,7 +793,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     showToast('Profile picture updated successfully!', 'success');
   };
 
-  const updateModelPhotosAndCompCard = (modelId: string, updatedPhotos: Partial<ModelProfile['photos']>) => {
+  const updateModelPhotosAndCompCard = (
+    modelId: string,
+    updatedPhotos: Partial<ModelProfile['photos']>,
+    compCardUrl?: string
+  ) => {
     setModels((prev) =>
       prev.map((m) => {
         if (m.id === modelId) {
@@ -793,7 +806,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             ...updatedPhotos,
             gallery: updatedPhotos.gallery || m.photos.gallery
           };
-          const updatedModel = { ...m, photos: newPhotos };
+          const updatedModel = {
+            ...m,
+            photos: newPhotos,
+            ...(compCardUrl !== undefined ? { compCardUrl } : {})
+          };
           saveModelToFirestore(updatedModel);
           return updatedModel;
         }

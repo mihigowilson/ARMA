@@ -12,7 +12,9 @@ import {
   EmailNotification
 } from '../types/arma';
 
-export const INITIAL_MODELS: ModelProfile[] = [
+export const INITIAL_MODELS: ModelProfile[] = [];
+/* Production starts with an empty directory.
+/*
   {
     id: 'mod-001', userId: 'usr-amani', fullName: 'Amani Uwase', stageName: 'Amani U.',
     category: 'Editorial', gender: 'Female', agencyId: 'age-001', agencyName: 'Kigali Faces Agency',
@@ -35,8 +37,11 @@ export const INITIAL_MODELS: ModelProfile[] = [
     availability: 'Available', verifiedBadge: true, featured: true, rating: 4.7
   }
 ];
+*/
 
-export const INITIAL_AGENCIES: AgencyProfile[] = [{
+export const INITIAL_AGENCIES: AgencyProfile[] = [];
+/*
+export const LEGACY_INITIAL_AGENCIES: AgencyProfile[] = [{
   id: 'age-001', userId: 'usr-kigali-faces', agencyName: 'Kigali Faces Agency',
   logo: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=300', coverImage: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200',
   ceoName: 'Claudine Mukamana', licenseNumber: 'ARMA-LIC-2026-001', licensedStatus: 'Licensed',
@@ -45,40 +50,56 @@ export const INITIAL_AGENCIES: AgencyProfile[] = [{
   description: 'A licensed Kigali agency representing commercial, editorial, and runway talent.',
   representedModelsCount: 1, activeCastingsCount: 2, verified: true, featured: true
 }];
+*/
 
 export const INITIAL_SCOUTS: ScoutProfile[] = [];
 
-export const INITIAL_CASTINGS: CastingCall[] = [{
+export const INITIAL_CASTINGS: CastingCall[] = [];
+/*
+export const LEGACY_INITIAL_CASTINGS: CastingCall[] = [{
   id: 'cast-001', title: 'Kigali Autumn Lookbook', organizerName: 'Kigali Faces Agency', organizerType: 'Agency',
   category: 'Editorial', location: 'Kigali', date: '2026-09-12', deadline: '2026-08-28', compensation: 'Paid; details on brief',
   description: 'Seeking confident editorial talent for a two-day studio and street-style lookbook production.',
   status: 'Open', applicantsCount: 0, featured: true, requirements: { gender: 'All', minHeightCm: 170, experienceLevel: 'Professional' }
 }];
+*/
 
-export const INITIAL_EVENTS: EventItem[] = [{
+export const INITIAL_EVENTS: EventItem[] = [];
+/*
+export const LEGACY_INITIAL_EVENTS: EventItem[] = [{
   id: 'evt-001', title: 'ARMA Industry Standards Forum', category: 'Seminar', startDate: '2026-09-05', endDate: '2026-09-05',
   location: 'Kigali', venue: 'Kigali Convention Centre', description: 'A practical forum on safeguarding, contracts, licensing, and professional standards across Rwanda’s fashion industry.',
   image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1200', organizer: 'ARMA Secretariat', ticketPrice: 'Free registration', status: 'Upcoming', isFeatured: true
 }];
+*/
 
-export const INITIAL_NEWS: NewsItem[] = [{
+export const INITIAL_NEWS: NewsItem[] = [];
+/*
+export const LEGACY_INITIAL_NEWS: NewsItem[] = [{
   id: 'news-001', title: 'ARMA publishes 2026 agency licensing calendar', slug: '2026-agency-licensing-calendar', category: 'National Announcement',
   summary: 'Agencies can now review the annual licensing, renewal, and compliance review dates.',
   content: 'ARMA has published its 2026 licensing calendar to make renewal planning clearer for agencies and represented talent.',
   author: 'ARMA Secretariat', date: '2026-08-01', readTime: '3 min read', image: 'https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1200', featured: true
 }];
+*/
 
-export const INITIAL_DOCUMENTS: DocumentItem[] = [{
+export const INITIAL_DOCUMENTS: DocumentItem[] = [];
+/*
+export const LEGACY_INITIAL_DOCUMENTS: DocumentItem[] = [{
   id: 'doc-001', title: 'Model and Agency Code of Conduct', category: 'Code of Conduct', fileSize: '248 KB', fileFormat: 'PDF',
   uploadDate: '2026-01-15', downloadCount: 0, description: 'Professional conduct, safeguarding, representation, and reporting standards for ARMA members.',
   fileUrl: '/documents/arma-code-of-conduct.pdf'
 }];
+*/
 
-export const INITIAL_CERTIFICATES: CertificateItem[] = [{
+export const INITIAL_CERTIFICATES: CertificateItem[] = [];
+/*
+export const LEGACY_INITIAL_CERTIFICATES: CertificateItem[] = [{
   id: 'cert-001', certificateNumber: 'ARMA-CERT-2026-001', recipientName: 'Kigali Faces Agency', recipientRole: 'Licensed Agency',
   courseTitle: 'Agency Compliance and Safeguarding', issueDate: '2026-01-20', expiryDate: '2027-01-20', verified: true,
   qrCodeData: 'ARMA-CERT-2026-001', issuerName: 'ARMA Secretariat'
 }];
+*/
 
 export const LEADERSHIP_MEMBERS: Array<{
   name: string;
