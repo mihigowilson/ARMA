@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import QRCode from 'qrcode';
 import { Download, Printer, ShieldCheck, QrCode, CheckCircle2, Sparkles, Copy, Eye, X, Building2, MapPin } from 'lucide-react';
 import { User, ModelProfile } from '../../types/arma';
+import { ArmaLogo } from '../layout/ArmaLogo';
 
 interface DigitalIdCardProps {
   user: User;
@@ -96,7 +97,7 @@ export const DigitalIdCard: React.FC<DigitalIdCardProps> = ({ user, modelProfile
     // User Avatar drawing
     const avatarImg = new Image();
     avatarImg.crossOrigin = 'anonymous';
-    avatarImg.src = user.avatar || modelProfile?.photos?.headshot || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400';
+    avatarImg.src = user.avatar || modelProfile?.photos?.headshot || '';
 
     avatarImg.onload = () => {
       // Draw User Photo
@@ -200,9 +201,7 @@ export const DigitalIdCard: React.FC<DigitalIdCardProps> = ({ user, modelProfile
         {/* Header */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-[#00A1DE] text-white flex items-center justify-center font-bold text-xs font-serif shadow-md">
-              RW
-            </div>
+            <ArmaLogo size="sm" className="[&>div:last-child]:hidden" />
             <div>
               <span className="text-[10px] font-mono font-bold text-[#00A1DE] block tracking-wider">
                 REPUBLIC OF RWANDA • ARMA DIRECTORY
@@ -225,7 +224,7 @@ export const DigitalIdCard: React.FC<DigitalIdCardProps> = ({ user, modelProfile
           {/* User Photo */}
           <div className="relative group mx-auto sm:mx-0">
             <img
-              src={user.avatar || modelProfile?.photos?.headshot || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400'}
+              src={user.avatar || modelProfile?.photos?.headshot || ''}
               alt={user.name}
               className="w-32 h-36 sm:w-36 sm:h-40 rounded-2xl object-cover border-2 border-[#00A1DE] shadow-xl"
             />
@@ -374,7 +373,7 @@ export const DigitalIdCard: React.FC<DigitalIdCardProps> = ({ user, modelProfile
 
               <div className="flex items-center gap-3">
                 <img
-                  src={user.avatar || modelProfile?.photos?.headshot}
+                  src={user.avatar || modelProfile?.photos?.headshot || ''}
                   alt={user.name}
                   className="w-14 h-14 rounded-xl object-cover border border-emerald-500/50"
                 />

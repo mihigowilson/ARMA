@@ -341,6 +341,11 @@ export const AgencyCeoDashboard: React.FC = () => {
       return;
     }
 
+    if (!castingBanner) {
+      showToast('A casting banner or campaign poster is required.', 'error');
+      return;
+    }
+
     addCasting({
       id: `cast-${Date.now()}`,
       title: castingTitle,
@@ -352,15 +357,15 @@ export const AgencyCeoDashboard: React.FC = () => {
       deadline: castingDeadline,
       compensation: castingCompensation,
       description: castingDescription,
-      bannerImage: castingBanner || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=1200',
-      image: castingBanner || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=1200',
+      bannerImage: castingBanner,
+      image: castingBanner,
       requirements: {
         gender: 'All',
         minHeightCm: 175,
         ageRange: '18 - 28',
         experienceLevel: 'Intermediate'
       },
-      status: 'Open',
+      status: 'Pending Approval',
       applicantsCount: 0,
       featured: true
     });
@@ -369,6 +374,7 @@ export const AgencyCeoDashboard: React.FC = () => {
     setCastingTitle('');
     setCastingDescription('');
     setCastingBanner('');
+    showToast('Casting submitted to ARMA Admin for approval.', 'info');
   };
 
   const filteredRoster = myRosterModels.filter((m) =>

@@ -62,6 +62,11 @@ export const CastingsPage: React.FC = () => {
       return;
     }
 
+    if (!bannerImage) {
+      showToast('A casting banner or campaign poster is required.', 'error');
+      return;
+    }
+
     const newCast: CastingCall = {
       id: `cast-${Date.now()}`,
       title,
@@ -73,18 +78,18 @@ export const CastingsPage: React.FC = () => {
       deadline,
       compensation,
       description,
-      bannerImage: bannerImage || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=1200',
-      image: bannerImage || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=1200',
+      bannerImage,
+      image: bannerImage,
       requirements: {
         gender: 'All',
         minHeightCm: 170,
         ageRange: '18-30'
       },
-      status: 'Open',
+      status: user?.role === 'Admin' ? 'Open' : 'Pending Approval',
       applicantsCount: 0
     };
     addCasting(newCast);
-    showToast(`Posted casting call "${title}"!`, 'success');
+    showToast(user?.role === 'Admin' ? `Posted casting call "${title}"!` : 'Casting submitted for Admin approval.', 'success');
     setShowCreateModal(false);
     setTitle('');
     setDescription('');
@@ -150,7 +155,7 @@ export const CastingsPage: React.FC = () => {
 
         {/* Casting Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCastings.map((casting) => {
+          {filteredCastings.filter((casting) => casting.status === 'Open').map((casting) => {
             const hasApplied = appliedCastingIds.includes(casting.id);
             const banner = casting.bannerImage || casting.image;
             return (

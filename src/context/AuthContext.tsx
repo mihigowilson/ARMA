@@ -90,6 +90,7 @@ interface AuthContextType {
   approveApplication: (appId: string) => void;
   rejectApplication: (appId: string) => void;
   addCasting: (casting: CastingCall) => void;
+  updateCastingStatus: (castingId: string, status: CastingCall['status']) => void;
   addModel: (model: ModelProfile) => void;
   addAgency: (agency: AgencyProfile) => void;
   addEvent: (event: EventItem) => void;
@@ -885,7 +886,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const addCasting = (newCasting: CastingCall) => {
     setCastings((prev) => [newCasting, ...prev]);
-    showToast('New Casting Call published to ARMA Job Board', 'success');
+    showToast(newCasting.status === 'Pending Approval' ? 'Casting submitted for ARMA Admin approval.' : 'New Casting Call published to ARMA Job Board', 'success');
+  };
+
+  const updateCastingStatus = (castingId: string, status: CastingCall['status']) => {
+    setCastings((prev) => prev.map((casting) => (
+      casting.id === castingId ? { ...casting, status } : casting
+    )));
+    showToast(`Casting ${status === 'Open' ? 'approved and published' : 'updated'}.`, 'success');
   };
 
   const registerAgencyAndCEO = (
@@ -1227,6 +1235,7 @@ www.arma.org.rw
         approveApplication,
         rejectApplication,
         addCasting,
+        updateCastingStatus,
         addModel,
         addAgency,
         addEvent,

@@ -49,26 +49,7 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentTab }) => {
     } catch (e) {
       console.error('Failed to load subscribers from storage', e);
     }
-    return [
-      {
-        id: 'sub-101',
-        email: 'media@kigalifashionweek.rw',
-        subscribedAt: '2026-01-15',
-        frequency: 'Weekly Gazette',
-        topics: ['Official Gazette & Directives', 'Fashion Week Calendar & Events'],
-        status: 'Active',
-        welcomeEmailSent: true
-      },
-      {
-        id: 'sub-102',
-        email: 'scout@modelsrwanda.org',
-        subscribedAt: '2026-02-01',
-        frequency: 'Instant Casting Alerts',
-        topics: ['Urgent Casting Calls & Jobs', 'Model Safeguarding & Fair Pay'],
-        status: 'Active',
-        welcomeEmailSent: true
-      }
-    ];
+    return [];
   });
 
   const [activeSubscriberModal, setActiveSubscriberModal] = useState<NewsletterSubscriber | null>(null);
@@ -99,7 +80,7 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentTab }) => {
     };
   }, []);
 
-  const activeCount = 1482 + subscribers.length;
+  const activeCount = subscribers.length;
 
   const availableTopics = [
     { id: 'Official Gazette & Directives', label: 'Gazette & Directives' },
@@ -421,7 +402,6 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentTab }) => {
               <p className="flex items-start gap-2">
                 <Phone className="w-4 h-4 text-[#20603D] shrink-0 mt-0.5" />
                 <span>
-                  <strong className="text-[#00A1DE] block">PRESIDENT CONTACT: +250 784 731 957</strong>
                   Secretariat: +250 788 123 456
                 </span>
               </p>

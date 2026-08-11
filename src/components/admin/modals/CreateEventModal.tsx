@@ -20,7 +20,7 @@ export const CreateEventModal: React.FC<CreateEventModalProps> = ({ onClose }) =
   const [venue, setVenue] = useState('Kigali Convention Centre');
   const [description, setDescription] = useState('');
   const [ticketPrice, setTicketPrice] = useState('25,000 RWF Regular / 75,000 RWF VIP');
-  const [imageUrl, setImageUrl] = useState('https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80&w=1200');
+  const [imageUrl, setImageUrl] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,6 +37,11 @@ export const CreateEventModal: React.FC<CreateEventModalProps> = ({ onClose }) =
     if (!validation.success) {
       const firstErr = Object.values(validation.errors)[0];
       showToast(`Validation Error: ${firstErr}`, 'error');
+      return;
+    }
+
+    if (!imageUrl) {
+      showToast('An event banner or poster is required.', 'error');
       return;
     }
 

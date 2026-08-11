@@ -142,7 +142,7 @@ export interface CastingCall {
     ageRange?: string;
     experienceLevel?: string;
   };
-  status: 'Open' | 'Closed' | 'Draft';
+  status: 'Open' | 'Closed' | 'Draft' | 'Pending Approval';
   applicantsCount: number;
   featured?: boolean;
 }

@@ -53,6 +53,7 @@ export const AdminDashboard: React.FC = () => {
     documents,
     certificates,
     applications,
+    updateCastingStatus,
     approveApplication,
     rejectApplication,
     updateAgencyLicensingStatus,
@@ -351,6 +352,21 @@ export const AdminDashboard: React.FC = () => {
                 ))}
               </div>
             )}
+          </div>
+        )}
+
+        {activeTab === 'applications' && castings.some((casting) => casting.status === 'Pending Approval') && (
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1E2630] border border-amber-300/30 shadow-xl space-y-3">
+            <h3 className="text-base font-serif font-bold">Pending Casting Approvals</h3>
+            {castings.filter((casting) => casting.status === 'Pending Approval').map((casting) => (
+              <div key={casting.id} className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 flex items-center justify-between gap-3 text-xs">
+                <div>
+                  <strong className="font-serif text-sm">{casting.title}</strong>
+                  <p className="text-slate-500">{casting.organizerName} · {casting.location} · banner attached</p>
+                </div>
+                <button onClick={() => updateCastingStatus(casting.id, 'Open')} className="px-3 py-1.5 rounded-xl bg-[#20603D] text-white font-semibold">Approve & Publish</button>
+              </div>
+            ))}
           </div>
         )}
 
